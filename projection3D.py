@@ -9,10 +9,10 @@ EdgeTable = []
 (temp1, temp2, temp3) = ([], [], [])
 if len(sys.argv) == 1 or "0" in sys.argv:
     # je sais pas comment appeler cet objet
-    temp1 = [[11, 5], [5, 17], [17, 7], [7, 15], [25, 21], [15, 3],
-             [19, 21], [3, 9], [25, 23], [1, 3], [23, 19], [1, 5],
-             [19, 11], [5, 7], [11, 23], [7, 3], [23, 17], [17, 25],
-             [25, 15], [15, 21], [21, 9], [9, 19], [9, 1], [1, 11]]
+    temp1 = [[11, 5],  [5, 17],  [17, 7],  [7, 15], [25, 21], [15, 3] ,
+             [19, 21], [3, 9],   [25, 23], [1, 3],  [23, 19], [1, 5]  ,
+             [19, 11], [5, 7],   [11, 23], [7, 3],  [23, 17], [17, 25],
+             [25, 15], [15, 21], [21, 9],  [9, 19], [9, 1],   [1, 11] ]
 if "1" in sys.argv:
     # pyramide
     temp2 = [[0, 6], [6, 8], [8, 2], [2, 0], [0, 22], [6, 22], [2, 22], [8, 22]]
@@ -57,7 +57,7 @@ def lowerShape(offset):
         temp1.append(VertexTable[i][2] -1 + offset)
         temp2.append(temp1)
     return temp2
-#VertexTable = lowerShape(shapeOffset)
+VertexTable = lowerShape(shapeOffset)
 
 
 # flip around and set size
