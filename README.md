@@ -12,9 +12,10 @@ for bonus features, change the command arguments:
 ```
 
 exemples of commands:
-```
-python projection3D 0 x y z zoom
-python projection3D 2 x
-python projection3D 1 y
-```
-to make your own shape, dm me on discord at Lancelot#4394
+<br />```python projection3D 2 x```
+<br />```python projection3D 1 y```
+<br />```python projection3D 0 x y z zoom```
+<br />to make your own shape, dm me on discord at Lancelot#4394
+
+
+this project was made using the pygame and numpy libraries
