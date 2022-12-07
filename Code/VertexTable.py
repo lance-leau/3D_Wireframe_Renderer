@@ -56,6 +56,8 @@ class Vertexes():
         self.VertexTable = VertexTable
         self.CurrShape = shape
         self.EdgeTable = self.GetEdgeTable()
+        self.MaxTurnSpeed = 0.05
+        self.size = size
         
     def GetEdgeTable(self):
         """
@@ -79,7 +81,7 @@ class Vertexes():
         elif self.CurrShape == 2:
             return [[0, 6], [6, 8], [8, 26], [26, 20], [20, 18], [18, 0], [18, 24], [24, 6], [24, 26], [2, 0], [2, 8], [2, 20]]
         else:
-            return [[]]
+            return []
         
     def Zoom(self, zoom = 0.005):
         """
@@ -93,8 +95,25 @@ class Vertexes():
             for j in range(3):
                 temp.append(self.VertexTable[i][j] * (1 + zoom))
             self.VertexTable[i] = temp
+    
+    def BetterZoom(self, zoomFacor):
+        """
+        Summary
+            multiply each vertex by the zoom transform matrix
+        Args:
+            zoom - float : Defaults to 0.005
+        """
+        zoomFacor += 1
+        ZoomMatrixX = [[zoomFacor,         0,          0],
+                       [        0, zoomFacor,          0],
+                       [        0,         0,  zoomFacor]]
+        zoomMat = numpy.array(ZoomMatrixX)
+        for i in range(len(self.VertexTable)):
+            point = numpy.array(self.VertexTable[i])
+            rPoint = numpy.dot(zoomMat, point)
+            self.VertexTable[i] = rPoint
 
-    def RotateVertexTableX(self, turnSpeed = 0.01):
+    def RotateVertexTableX(self, turnSpeed = 0.015):
         """
         Summary:
             rotates the shape along the X axis
@@ -112,7 +131,7 @@ class Vertexes():
             rPoint = numpy.dot(rotMat, point)
             self.VertexTable[i] = rPoint
 
-    def RotateVertexTableY(self, turnSpeed = 0.01):
+    def RotateVertexTableY(self, turnSpeed = 0.015):
         """
         Summary:
             rotates the shape along the Y axis
@@ -130,7 +149,7 @@ class Vertexes():
             rPoint = numpy.dot(rotMat, point)
             self.VertexTable[i] = rPoint
 
-    def RotateVertexTableZ(self, turnSpeed = 0.01):
+    def RotateVertexTableZ(self, turnSpeed = 0.015):
         """
         Summary:
             rotates the shape along the Z axis
@@ -165,13 +184,13 @@ class Vertexes():
             temp2.append(temp1)
         self.VertexTable = temp2
     
-# Standart Vertex Table
+# Standard Vertex Table
 vertexTable = [ (0, 0, 0), (0, 1, 0), (0, 2, 0),
                 (1, 0, 0), (1, 1, 0), (1, 2, 0),
                 (2, 0, 0), (2, 1, 0), (2, 2, 0),
                 (0, 0, 1), (0, 1, 1), (0, 2, 1),
                 (1, 0, 1), (1, 1, 1), (1, 2, 1),
-                (2, 0, 1), (2, 1, 1), (2, 2, 1), 
+                (2, 0, 1), (2, 1, 1), (2, 2, 1),
                 (0, 0, 2), (0, 1, 2), (0, 2, 2),
                 (1, 0, 2), (1, 1, 2), (1, 2, 2),
                 (2, 0, 2), (2, 1, 2), (2, 2, 2)]
