@@ -145,7 +145,7 @@ def launchWindow():
         projection.DrawShape((255, 255, 255), screen)
         
         # Draw points
-        DiyShape.ShowVertices(screen, projection.projectedPoints)
+        # DiyShape.ShowVertices(screen, projection.projectedPoints)
         
         # Update the canvas
         pygame.display.update()
