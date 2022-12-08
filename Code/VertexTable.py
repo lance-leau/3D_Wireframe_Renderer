@@ -1,7 +1,7 @@
 import math
 import numpy
 
-class Vertexes():
+class Vertices():
     def lowerShape(self, VertexTable, offset = (0, 0, 0)):
         """
         Summery:
