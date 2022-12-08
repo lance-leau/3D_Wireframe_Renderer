@@ -5,11 +5,21 @@ import pygame
 SliderNob = pygame.image.load("./../Images/SliderNob.png").convert_alpha()
         
 
-def ShowVertices(screen, projectedPoints):
+class DiyShape():
+    def __init__(self, vertexTable):
+        self.vertexTable = vertexTable
+        self.SelectedA = 0
+        self.SelectedB = 0
+        self.currPoint = 0
     
-    buttonList = []
-    for i in range (len(projectedPoints)):
-        buttonList.append(Button.Button(projectedPoints[i][0], projectedPoints[i][1], SliderNob, 0.2))
+    def AddEdge(self, edgeTable):
+        edgeTable.append([self.SelectedA, self.SelectedB])
     
-    for i in range (len(projectedPoints)):
-        buttonList[i].draw(screen)
+    def ShowVertices(self, screen, projectedPoints):
+        for i in range (len(projectedPoints)):
+            if i == self.SelectedA:
+                pygame.draw.circle(screen, (255, 0, 0), projectedPoints[i], 3, 6)
+            elif i == self.SelectedB:
+                pygame.draw.circle(screen, (0, 0, 255), projectedPoints[i], 3, 6)
+            else:
+                pygame.draw.circle(screen, (255, 255, 255), projectedPoints[i], 3, 6)

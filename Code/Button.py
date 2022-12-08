@@ -31,7 +31,7 @@ class Button():
 		return action
 
 class Check():
-	def __init__(self, x, y, image1, image2, scale):
+	def __init__(self, x, y, image1, image2, scale, state = False):
 		width = image1.get_width()
 		height = image1.get_height()
 		self.unchecked = image1 # pygame.transform.scale(image1, (int(width * scale), int(height * scale)))
@@ -39,7 +39,7 @@ class Check():
 		self.rect = self.unchecked.get_rect()
 		self.rect.topleft = (x, y)
 		self.clicked = False
-		self.state = False
+		self.state = state
 
 	def draw(self, surface):
 		action = False
