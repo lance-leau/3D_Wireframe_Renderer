@@ -65,13 +65,10 @@ class Check():
 
 
 class Slider():
-    def __init__(self, x, y, BarImage, NobImage, scale):
-        BarWidth = BarImage.get_width()
-        BarHeight = BarImage.get_height()
+    def __init__(self, x, y, BarImage, NobImage):
         NobWidth = NobImage.get_width()
-        NobHeight = BarImage.get_height()
-        self.BarImage = pygame.transform.scale(BarImage, (int(BarWidth * scale), int(BarHeight * scale)))
-        self.NobImage = pygame.transform.scale(NobImage, (int(NobWidth * scale), int(NobHeight * scale)))
+        self.BarImage = BarImage
+        self.NobImage = NobImage
         self.nob = self.NobImage.get_rect()
         self.bar = self.BarImage.get_rect()
         self.bar.midleft = (x, y)
