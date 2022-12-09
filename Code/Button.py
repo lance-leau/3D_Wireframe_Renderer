@@ -42,7 +42,6 @@ class Check():
 		self.state = state
 
 	def draw(self, surface):
-		action = False
 		#get mouse position
 		pos = pygame.mouse.get_pos()
 
@@ -63,6 +62,37 @@ class Check():
 
 		return self.state
 
+class RadioCheck():
+	def __init__(self, x, y, image1, image2, scale, state = False):
+		width = image1.get_width()
+		height = image1.get_height()
+		self.unchecked = image1 # pygame.transform.scale(image1, (int(width * scale), int(height * scale)))
+		self.checked = image2 # pygame.transform.scale(image2, (int(width * scale), int(height * scale)))
+		self.rect = self.unchecked.get_rect()
+		self.rect.topleft = (x, y)
+		self.clicked = False
+		self.state = state
+
+	def draw(self, surface):
+		#get mouse position
+		pos = pygame.mouse.get_pos()
+
+		#check mouseover and clicked conditions
+		if self.rect.collidepoint(pos):
+			if pygame.mouse.get_pressed()[0] == True and self.clicked == False:
+				self.clicked = True
+				self.state = True
+
+		if pygame.mouse.get_pressed()[0] == 0:
+			self.clicked = False
+
+		#draw button on screen
+		if self.state:
+			surface.blit(self.checked, (self.rect.x, self.rect.y))
+		else:
+			surface.blit(self.unchecked, (self.rect.x, self.rect.y))
+
+		return self.state
 
 class Slider():
     def __init__(self, x, y, BarImage, NobImage):
@@ -149,4 +179,3 @@ class Tactile():
         
         
         return self.action
-             
