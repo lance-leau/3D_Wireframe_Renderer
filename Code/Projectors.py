@@ -26,3 +26,7 @@ class Projectors():
     def DrawPoints(self, points, screen, color):
         for point in points:
             pygame.draw.circle(screen, color, point, 1, 25)
+    
+    def DrawCenter(self, screen, color):
+        pygame.draw.circle(screen, color, self.projectedPoints[13], 2, 25)
+    

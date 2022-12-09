@@ -14,9 +14,9 @@ class Vertices():
         temp2 = []
         for i in range(len(VertexTable)):
             temp1 = []
-            temp1.append(VertexTable[i][0] -1 + offset[0])
-            temp1.append(VertexTable[i][1] -1 + offset[1])
-            temp1.append(VertexTable[i][2] -1 + offset[2])
+            temp1.append(VertexTable[i][0] + offset[0])
+            temp1.append(VertexTable[i][1] + offset[1])
+            temp1.append(VertexTable[i][2] + offset[2])
             temp2.append(temp1)
         return temp2
     
@@ -35,12 +35,12 @@ class Vertices():
         for i in range(len(VertexTable)):
             temp1 = []
             temp1.append(VertexTable[i][0] * ShapeSize)
-            temp1.append(VertexTable[i][2] * -ShapeSize)
             temp1.append(VertexTable[i][1] * ShapeSize)
+            temp1.append(VertexTable[i][2] * ShapeSize)
             temp2.append(temp1)
         return temp2
     
-    def __init__(self, VertexTable, shape = 0, size = 50):
+    def __init__(self, VertexTable, currShape = 0, size = 50):
         """
         Summary:
             A vertex table is a matrix of 3D points represented as a list of list
@@ -54,14 +54,21 @@ class Vertices():
         VertexTable = self.lowerShape(VertexTable)
         VertexTable = self.setSize(VertexTable, size)
         self.VertexTable = VertexTable
-        self.CurrShape = shape
+        self.CurrShape = currShape
         self.EdgeTable = self.GetEdgeTable()
         self.MaxTurnSpeed = 0.05
         self.size = size
-        
+        self.ShapeNumber = self.GetFileLen()
+    
+    def GetFileLen(self):
+        file = open("./../EdgeTables/EdgeTables.txt", "r")
+        x = len(file.readlines())
+        file.close()
+        return x
+    
     def GetEdgeTable(self):
         """
-        Summary:
+        Summary: No longer works like that
             returns a stored edge table for different shapes
         Args:
             self.shape - int : shape indexes:
@@ -71,17 +78,32 @@ class Vertices():
         Returns:
             int[int] : the chosen edge table
         """
-        if self.CurrShape == 0:
-            return [[11,  5], [5,  17], [17,  7], [7, 15], [25, 21], [15,  3],
-                    [19, 21], [3,   9], [25, 23], [1,  3], [23, 19], [1,   5],
-                    [19, 11], [5,   7], [11, 23], [7,  3], [23, 17], [17, 25],
-                    [25, 15], [15, 21], [21,  9], [9, 19], [9,   1], [1,  11]]
-        elif self.CurrShape == 1:
-            return [[0, 6], [6, 8], [8, 2], [2, 0], [0, 22], [6, 22], [2, 22], [8, 22]]
-        elif self.CurrShape == 2:
-            return [[0, 6], [6, 8], [8, 26], [26, 20], [20, 18], [18, 0], [18, 24], [24, 6], [24, 26], [2, 0], [2, 8], [2, 20]]
-        else:
-            return []
+        file = open("./../EdgeTables/EdgeTables.txt", "r")
+        ret = []
+        for i in range(self.CurrShape + 1):
+            string = file.readline()
+        i = 0
+        num = ""
+        temp = True
+        size = len(string)
+        while i < size:
+            while i < size and string[i] != " " and string[i] != "":
+                num = num + string[i]
+                i += 1
+            if temp:
+                num1 = int(num)
+                temp = False
+                num = ""
+            else:
+                num2 = int(num)
+                ret.append([num1, num2])
+                num = ""
+                temp = True
+            i += 1
+            
+        file.close()
+        return ret
+
         
     def Zoom(self, zoom = 0.005):
         """
@@ -184,13 +206,23 @@ class Vertices():
             temp2.append(temp1)
         self.VertexTable = temp2
     
-# Standard Vertex Table
-vertexTable = [ (0, 0, 0), (0, 1, 0), (0, 2, 0),
-                (1, 0, 0), (1, 1, 0), (1, 2, 0),
-                (2, 0, 0), (2, 1, 0), (2, 2, 0),
-                (0, 0, 1), (0, 1, 1), (0, 2, 1),
-                (1, 0, 1), (1, 1, 1), (1, 2, 1),
-                (2, 0, 1), (2, 1, 1), (2, 2, 1),
-                (0, 0, 2), (0, 1, 2), (0, 2, 2),
-                (1, 0, 2), (1, 1, 2), (1, 2, 2),
-                (2, 0, 2), (2, 1, 2), (2, 2, 2)]
+# Standard Vertex Table of dim:
+x = 5
+y = 5
+z = 5
+vertexTable = []
+for x in range(-1, 2):
+    for y in range(-1, 2):
+        for z in range(-1, 2):
+            vertexTable.append((x, y, z))
+
+
+# vertexTable = [ (0, 0, 0), (0, 1, 0), (0, 2, 0),
+#                 (1, 0, 0), (1, 1, 0), (1, 2, 0),
+#                 (2, 0, 0), (2, 1, 0), (2, 2, 0),
+#                 (0, 0, 1), (0, 1, 1), (0, 2, 1),
+#                 (1, 0, 1), (1, 1, 1), (1, 2, 1),
+#                 (2, 0, 1), (2, 1, 1), (2, 2, 1),
+#                 (0, 0, 2), (0, 1, 2), (0, 2, 2),
+#                 (1, 0, 2), (1, 1, 2), (1, 2, 2),
+#                 (2, 0, 2), (2, 1, 2), (2, 2, 2)]
