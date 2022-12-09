@@ -30,6 +30,7 @@ Save = pygame.image.load("./../Images/Save.png").convert_alpha()
 Delete = pygame.image.load("./../Images/Delete.png").convert_alpha()
 SaveDelete = pygame.image.load("./../Images/SaveDeleteRect.png").convert_alpha()
 Settings = pygame.image.load("./../Images/Settings.png").convert_alpha()
+NotSave = pygame.image.load("./../Images/NotSave.png").convert_alpha()
 
 
 #create button instances
@@ -123,6 +124,11 @@ def launchWindow():
             if UndoButton.draw(screen):
                 if len(projection.EdgeTable) != 0:
                     projection.EdgeTable.pop()
+            # Draw buttons on window, check if clicked
+            screen.blit(SaveDelete, (22, 114))
+            if Save.draw(screen):
+                diyShape.SaveShape("./../EdgeTables/EdgeTables.txt")
+                vertexTable.ShapeNumber += 1
         else:
             screen.blit(Settings, (23, 240))
             if ViewVertices.draw(screen):
@@ -139,13 +145,10 @@ def launchWindow():
                 projection.focalLen = (projection.minFocalLen * (1 - FOVSlider.value)) + (projection.maxFocalLen * FOVSlider.value)
             if SensitivitySlider.draw(screen):
                 sensitivity = SensitivitySlider.value
+            # Draw buttons on window, check if clicked
+            screen.blit(SaveDelete, (22, 114))
+            screen.blit(NotSave, (38, 175))
             
-        
-        # Draw buttons on window, check if clicked
-        screen.blit(SaveDelete, (22, 114))
-        if Save.draw(screen):
-            diyShape.SaveShape("./../EdgeTables/EdgeTables.txt")
-            vertexTable.ShapeNumber += 1
         
         if Delete.draw(screen):
             if diyShape.DeleteShape("./../EdgeTables/EdgeTables.txt", vertexTable.CurrShape):
