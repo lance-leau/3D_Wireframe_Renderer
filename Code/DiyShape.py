@@ -24,11 +24,12 @@ class DiyShape():
     def SaveShape(self, file):
         file = open(file, "a+")
         file.write("\n")
-        print(self.edgeTable)
         for i in range(1, len(self.edgeTable)):
             file.write(str(self.edgeTable[i][0]) + " " + str(self.edgeTable[i][1]))
+            print(str(self.edgeTable[i][0]) + " " + str(self.edgeTable[i][1]), end=" ")
             if i != len(self.edgeTable) -1:
                 file.write(" ")
+        print()
         file.close()
                 
     def DeleteShape(self, file, index):
