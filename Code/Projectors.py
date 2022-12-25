@@ -21,7 +21,7 @@ class Projectors():
         for i in range(len(self.EdgeTable)):
             point1 = self.projectedPoints[self.EdgeTable[i][0]]
             point2 = self.projectedPoints[self.EdgeTable[i][1]]
-            pygame.draw.line(screen, color, point1, point2, 4)
+            pygame.draw.line(screen, color, point1, point2, 2)
     
     def DrawPoints(self, points, screen, color):
         for point in points:

@@ -1,4 +1,3 @@
-from math import sqrt
 import pygame
 
 #button class

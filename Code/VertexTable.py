@@ -1,4 +1,3 @@
-import math
 import numpy
 
 class Vertices():
@@ -144,8 +143,8 @@ class Vertices():
         """
         
         RotateMatrixX = [[               1,                   0,                   0 ],
-                         [               0, math.cos(turnSpeed), -math.sin(turnSpeed)],
-                         [               0, math.sin(turnSpeed),  math.cos(turnSpeed)]]
+                         [               0, numpy.cos(turnSpeed), -numpy.sin(turnSpeed)],
+                         [               0, numpy.sin(turnSpeed),  numpy.cos(turnSpeed)]]
         
         rotMat = numpy.array(RotateMatrixX)
         for i in range(len(self.VertexTable)):
@@ -161,9 +160,9 @@ class Vertices():
             turnSpeed - float : default turn speed is 0.01
         """
         
-        RotateMatrixY = [[ math.cos(turnSpeed),               0, math.sin(turnSpeed)],
+        RotateMatrixY = [[ numpy.cos(turnSpeed),               0, numpy.sin(turnSpeed)],
                          [                   0,               1,                   0],
-                         [-math.sin(turnSpeed),               0, math.cos(turnSpeed)]]
+                         [-numpy.sin(turnSpeed),               0, numpy.cos(turnSpeed)]]
         
         rotMat = numpy.array(RotateMatrixY)
         for i in range(len(self.VertexTable)):
@@ -179,8 +178,8 @@ class Vertices():
             turnSpeed - float : default turn speed is 0.01
         """
         
-        RotateMatrixZ = [[ math.cos(turnSpeed), -math.sin(turnSpeed),               0],
-                         [ math.sin(turnSpeed),  math.cos(turnSpeed),               0],
+        RotateMatrixZ = [[ numpy.cos(turnSpeed), -numpy.sin(turnSpeed),               0],
+                         [ numpy.sin(turnSpeed),  numpy.cos(turnSpeed),               0],
                          [                   0,                    0,               1]]
         
         rotMat = numpy.array(RotateMatrixZ)

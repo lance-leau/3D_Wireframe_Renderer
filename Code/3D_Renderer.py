@@ -1,6 +1,5 @@
 # This project was made by Lancelot
 
-from cmath import isclose
 import VertexTable, Projectors
 import sys,  pygame
 import Button
@@ -8,6 +7,9 @@ import Button
 #create display window
 screen = pygame.display.set_mode((1024, 576))
 pygame.display.set_caption("3D Wire Frame Renderer")
+
+surface = pygame.image.load("./../Images/logo.png").convert_alpha()
+pygame.display.set_icon(surface)
 
 import DiyShape
 
@@ -78,7 +80,7 @@ def launchWindow():
                 sys.exit
                 
         # Earase previous frame
-        pygame.draw.rect(screen, (33, 40, 48), pygame.Rect(256, 0, 768, 576))
+        pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(256, 0, 768, 576))
         pygame.draw.rect(screen, (69, 74, 79), pygame.Rect(0, 0, 256, 576))
         
         # Choose propper UI for cuur state
@@ -132,14 +134,14 @@ def launchWindow():
         else:
             screen.blit(Settings, (23, 240))
             if ViewVertices.draw(screen):
-                projection.DrawPoints(projection.projectedPoints, screen, (0, 0, 0))
+                projection.DrawPoints(projection.projectedPoints, screen, (255, 255, 255))
             if ViewCenter.draw(screen):
                 projection.DrawCenter(screen, (255, 0, 0))
             
             # Update sliders
             if SizeSlider.draw(screen):
                 if (SizeSlider.value - 0.5) != prevZoom:
-                    vertexTable.BetterZoom((SizeSlider.value - 0.5) - prevZoom)
+                    vertexTable.BetterZoom(2*((SizeSlider.value - 0.5) - prevZoom))
                     prevZoom = (SizeSlider.value - 0.5)
             if FOVSlider.draw(screen):
                 projection.focalLen = (projection.minFocalLen * (1 - FOVSlider.value)) + (projection.maxFocalLen * FOVSlider.value)
@@ -203,7 +205,7 @@ def launchWindow():
         projection = Projectors.Projectors(vertexTable, projection.focalLen , vertexTable.EdgeTable, offset)
         
         # Draw new frame
-        projection.DrawShape((255, 255, 255), screen)
+        projection.DrawShape((71, 225, 12), screen)
         
         # Draw points
         if makeYourOwnShape:
